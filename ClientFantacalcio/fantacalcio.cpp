@@ -1,9 +1,9 @@
-#include <iostream>
+
 #include <stdlib.h>
 #include <cpr/cpr.h>
 #include "fantacalcio.h"
 
-using namespace std;
+
 string url = "http://localhost:7000";
 
 FantaCalcio::FantaCalcio() {}
