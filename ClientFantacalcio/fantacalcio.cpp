@@ -16,7 +16,7 @@ void FantaCalcio::addTeam() {
     cout << "Inserisci nome presidente" << endl;
     getline(cin, nomePresidente);
     squadra->setPresidente(nomePresidente);
-    auto r = cpr::Post(cpr::Url{ url + "/addTeam?nomeSquadra=" + squadra->getNome() + "&nomePresidente=" + squadra->getPresidente() });
+    cpr::Response r = cpr::Post(cpr::Url{ url + "/addTeam?nomeSquadra=" + squadra->getNome() + "&nomePresidente=" + squadra->getPresidente() });
     cout << "Returned Status:" << r.status_code << std::endl;
     cout << r.text << endl;
     delete squadra;
@@ -28,7 +28,7 @@ void FantaCalcio::getTeam() {
     cout << "Inserisci il nome della squadra:" << endl;
     getline(cin, nome);
     squadra->setNome(nome);
-    auto r = cpr::Get(cpr::Url{ url + "/getTeam?nome=" + squadra->getNome() });
+    cpr::Response r = cpr::Get(cpr::Url{ url + "/getTeam?nome=" + squadra->getNome() });
     cout << r.text << endl;
     cout << "Returned Status:" << r.status_code << std::endl;
     delete squadra;
@@ -39,7 +39,7 @@ void FantaCalcio::removeTeam() {
     cout << "Inserisci nome della squadra da eliminare" << endl;
     getline(cin, nome);
     squadra->setNome(nome);
-    auto r = cpr::Delete(cpr::Url{ url + "/deleteTeam?nome=" + squadra->getNome() });
+    cpr::Response r = cpr::Delete(cpr::Url{ url + "/deleteTeam?nome=" + squadra->getNome() });
     cout << "\nReturned Status:" << r.status_code << std::endl;
     cout << r.text << endl;
     delete squadra;
@@ -55,7 +55,7 @@ void FantaCalcio::addPlayerToTeam() {
     getline(cin, nomePlayer);
     player->setNome(nomePlayer);
     cout << "Stai inserendo il giocatore: " << player->getNome() << " nella squadra: " << squadra->getNome() << endl;
-    auto r = cpr::Put(cpr::Url{ url + "/addPlayer?nomeSquadra=" + squadra->getNome() + "&nomePlayer=" + player->getNome() });
+    cpr::Response r = cpr::Put(cpr::Url{ url + "/addPlayer?nomeSquadra=" + squadra->getNome() + "&nomePlayer=" + player->getNome() });
     cout << "Returned Status:" << r.status_code << std::endl;
     cout << r.text << endl;
     delete squadra;
@@ -71,7 +71,7 @@ void FantaCalcio::putPlayer() {
     cout << "Inserisci la nuova quotazione del giocatore" << endl;
     cin >> price;
     player->setQuotazione(price);
-    auto r = cpr::Put(cpr::Url{ url + "/putPlayer?nomePlayer=" + player->getNome() + "&quotazione=" + to_string(player->getQuotazione()) });
+    cpr::Response r = cpr::Put(cpr::Url{ url + "/putPlayer?nomePlayer=" + player->getNome() + "&quotazione=" + to_string(player->getQuotazione()) });
     cout << "Returned Status:" << r.status_code << std::endl;
     cout << r.text << endl;
     delete player;
@@ -86,7 +86,7 @@ void FantaCalcio::toFreePlayer() {
     cout << "Inserisci il nome del giocatore da rimuovere dalla squadra" << endl;
     getline(cin, nomeGiocatore);
     giocatore->setNome(nomeGiocatore);
-    auto r = cpr::Put(cpr::Url{ url + "/removePlayer?nomeSquadra=" + squadra->getNome() + "&nomePlayer=" + giocatore->getNome() });
+    cpr::Response r = cpr::Put(cpr::Url{ url + "/removePlayer?nomeSquadra=" + squadra->getNome() + "&nomePlayer=" + giocatore->getNome() });
     cout << "Returned Status:" << r.status_code << std::endl;
     cout << r.text << endl;
     delete squadra;
@@ -110,7 +110,7 @@ void FantaCalcio::transferPlayers() {
     cout << "Inserisci giocatore della squadra 2:" << endl;
     getline(cin, player2);
     p2->setNome(player2);
-    auto res = cpr::Put(cpr::Url{ url + "/changePlayer?squadra1=" + t1->getNome() + "&squadra2=" + t2->getNome() + "&player1=" + p1->getNome() + "&player2=" + p2->getNome() });
+    cpr::Response res = cpr::Put(cpr::Url{ url + "/changePlayer?squadra1=" + t1->getNome() + "&squadra2=" + t2->getNome() + "&player1=" + p1->getNome() + "&player2=" + p2->getNome() });
     cout << "Returned Status:" << res.status_code << std::endl;
     cout << res.text << endl;
     delete t1;
